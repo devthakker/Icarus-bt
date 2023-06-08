@@ -126,8 +126,14 @@ class Riley:
     
     def optimize(self):
         optimization_range = self.strategy.optimization_range
+        
+    def plot(self):
+        pass
     
     def run(self):
+        """
+        Runs the backtest.
+        """
         if self.cash is None:
             raise Exception('Cash must be set')
         if self.strategy is None:
@@ -136,6 +142,8 @@ class Riley:
             raise Exception('Data must be set')
         if self.stake is None:
             raise Exception('Stake must be set')
+        
+        
         
         
         if self.optimization:
