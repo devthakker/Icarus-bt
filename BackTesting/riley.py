@@ -134,6 +134,8 @@ class Riley:
         """
         Runs the backtest.
         """
+        
+        #Check if all required variables are set
         if self.cash is None:
             raise Exception('Cash must be set')
         if self.strategy is None:
@@ -143,7 +145,14 @@ class Riley:
         if self.stake is None:
             raise Exception('Stake must be set')
         
+        #Initialize Variables
         
+        #Create dictionary to store current position
+        CURRENT_POSITION = {'shares': 0, 'price': 0}
+
+        #Set start and end dates
+        startDate = self.data['timestamp'][0]
+        endDate = self.data['timestamp'][len(self.data)-1]
         
         
         if self.optimization:
