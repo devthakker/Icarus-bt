@@ -12,12 +12,14 @@ class Riley:
         stake (float): The amount of cash to use per trade
     """
     
-    def __init__(self, optimization=False) -> None:
+    def __init__(self, optimization=False, log=False) -> None:
         self.optimization = optimization
+        self.log = log
         self.cash = None
         self.strategy = None
         self.data = None
         self.stake = None
+        
         
     def set_cash(self, cash):
         self.cash = cash
