@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import logging
-import matplotlib.pyplot as plt
 
 class Riley:
     """
@@ -21,17 +21,37 @@ class Riley:
         self.strategy = None
         self.data = None
         self.stake = None
+        self.logger = logging.getLogger(__name__)
+        self.stake_type = None
         
         
-    def set_cash(self, cash):
+    def set_cash(self, cash: float):
+        """
+        Sets the amount of cash to start with.
+        
+        Args:
+            cash (float): The amount of cash to start with.
+        """
         self.cash = cash
         return
     
     def set_strategy(self, strategy):
+        """
+        Sets the strategy to backtest.
+        
+        Args:
+            strategy (Strategy): The strategy to backtest.
+        """
         self.strategy = strategy
         return
     
-    def add_data_dataframe(self, data):
+    def add_data_dataframe(self, data: pd.DataFrame):
+        """
+        Adds data to back instance of Riley with a pandas dataframe.
+        
+        Args:
+            data (pd.DataFrame): The data to backtest on.
+        """
         if isinstance(data, pd.DataFrame):
             df = pd.DataFrame(data)
             if 'open' not in df.columns:
@@ -47,7 +67,12 @@ class Riley:
             raise Exception('Data must be a pandas dataframe')
         return
     
-    def add_data_csv(self, path):
+    def add_data_csv(self, path: str):
+        """
+        Adds data to back instance of Riley with a csv file.
+        
+        Args:
+            path (str): The path to the csv file."""
         if isinstance(path, str):
             df = pd.read_csv(path)
             if 'open' not in df.columns:
@@ -63,8 +88,40 @@ class Riley:
             raise Exception('Path is invalid')
         return
     
-    def set_stake(self, stake):
+    def set_stake_quantity(self, stake: float):
+        """
+        Sets the amount of cash to use per trade in the form of quantity of shares.
+        Sets the stake type to quantity.
+        
+        Args:
+            stake (float): The amount of shares to purchase in each trade.
+        """
         self.stake = stake
+        self.stake_type = 'quantity'
+        return
+    
+    def set_stake_percentage(self, stake: float):
+        """
+        Sets the amount of cash to use per trade in the form of percentage of cash.
+        Sets the stake type to percentage.
+        
+        Args:
+            stake (float): The percentage of cash to use per trade.
+        """
+        self.stake = stake
+        self.stake_type = 'percentage'
+        return
+    
+    def set_stake_dollars(self, stake: float):
+        """
+        Sets the amount of cash to use per trade in the form of dollars.
+        Sets the stake type to dollars.
+        
+        Args:
+            stake (float): The amount of cash to use per trade.
+        """
+        self.stake = stake
+        self.stake_type = 'dollars'
         return
     
     def optimize(self):
