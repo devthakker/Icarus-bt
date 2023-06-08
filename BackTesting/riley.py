@@ -154,9 +154,22 @@ class Riley:
         startDate = self.data['timestamp'][0]
         endDate = self.data['timestamp'][len(self.data)-1]
         
-        
+        for bar in self.data.iterrows():
+            try:
+                #Create dictionary from row
+                ohlc = {'open': bar[1]['open'], 'high': bar[1]['high'], 'low': bar[1]['low'], 'close': bar[1]['close'], 'volume': bar[1]['volume'], 'time': bar[1]['timestamp']}
+            except:
+                #Create dictionary from row
+                ohlc = {'open': bar[1]['open'], 'high': bar[1]['high'], 'low': bar[1]['low'], 'close': bar[1]['close']}
+
+            #Update current position
+            # CURRENT_POSITION = self.strategy.update_current_position(CURRENT_POSITION, ohlc)
+
+            print(ohlc)
+            
         if self.optimization:
             optimization = self.optimize()
-        
-        return optimization
-    
+            return optimization
+        else:
+            print("No optimization")
+            return    
