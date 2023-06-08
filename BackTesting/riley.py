@@ -64,11 +64,7 @@ class Riley:
         return
     
     def optimize(self):
-        if self.optimization:
-            return
-        else:
-            raise Exception('Optimization is not enabled')
-        return
+        optimization_range = self.strategy.optimization_range
     
     def run(self):
         if self.cash is None:
@@ -79,5 +75,10 @@ class Riley:
             raise Exception('Data must be set')
         if self.stake is None:
             raise Exception('Stake must be set')
-        return
+        
+        
+        if self.optimization:
+            optimization = self.optimize()
+        
+        return optimization
     
