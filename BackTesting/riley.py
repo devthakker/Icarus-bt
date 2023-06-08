@@ -1,12 +1,23 @@
 import pandas as pd
 
 class Riley:
+    """
+    Riley is a class that allows for the backtesting of trading strategies.
+    
+    Attributes:
+        optimization (bool): Whether or not to optimize the strategy
+        cash (float): The amount of cash to start with
+        strategy (Strategy): The strategy to backtest
+        data (pd.DataFrame): The data to backtest on
+        stake (float): The amount of cash to use per trade
+    """
     
     def __init__(self, optimization=False) -> None:
         self.optimization = optimization
         self.cash = None
         self.strategy = None
         self.data = None
+        self.stake = None
         
     def set_cash(self, cash):
         self.cash = cash
@@ -48,4 +59,25 @@ class Riley:
             raise Exception('Path is invalid')
         return
     
+    def set_stake(self, stake):
+        self.stake = stake
+        return
+    
+    def optimize(self):
+        if self.optimization:
+            return
+        else:
+            raise Exception('Optimization is not enabled')
+        return
+    
+    def run(self):
+        if self.cash is None:
+            raise Exception('Cash must be set')
+        if self.strategy is None:
+            raise Exception('Strategy must be set')
+        if self.data is None:
+            raise Exception('Data must be set')
+        if self.stake is None:
+            raise Exception('Stake must be set')
+        return
     
