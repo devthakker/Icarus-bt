@@ -23,32 +23,32 @@ class BollingerBands():
         self.current_position['shares'] = shares
         self.current_position['price'] = price
         return self.current_position
+    
+    def add_input_value(self, line):
+        self.BBONE.add_input_value(line['close'])
+        self.BBTWO.add_input_value(line['close'])
+        self.history.append(line)
+        return self.history
         
     def check_for_buy(self, line):
-        pass
+        if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
+            if self.BBONE[-1].lb > line['close'] and self.BBTWO[-1].lb < line['close']:
+                # if self.BBONE[-2].lb < line['close']:
+                    return True
+        return False
+    
     
     def buy(self, line):
         pass
     
     def check_for_sell(self, line):
-        pass
+        if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
+            if self.BBONE[-1].ub < line['close'] and self.BBTWO[-1].ub > line['close']:
+                # if self.BBONE[-1].ub > line['close']:
+                    return True
+        return False
     
     def sell(self, line):
-        pass
-    
-    def run(self):
-        pass
-    
-    def show_results(self):
-        pass
-
-    def optimize(self):
-        pass
-    
-    def get_results(self):
-        pass
-    
-    def get_best_results(self):
         pass
     
     

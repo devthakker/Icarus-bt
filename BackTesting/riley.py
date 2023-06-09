@@ -24,6 +24,8 @@ class Riley:
         self.stake = None
         self.logger = logging.getLogger(__name__)
         self.stake_type = None
+        self.starting_cash = None
+        self.account_value = 0
         
         
     def set_cash(self, cash: float):
@@ -33,6 +35,7 @@ class Riley:
         Args:
             cash (float): The amount of cash to start with.
         """
+        self.starting_cash = cash
         self.cash = cash
         return
     
@@ -103,8 +106,10 @@ class Riley:
         ticker = yf.Ticker(ticker)
         
         df = ticker.history(ticker, start=start, end=end, interval=interval)
-            
-        return df
+        
+        df.rename(columns={'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close', 'Volume': 'volume'}, inplace=True)
+        
+        self.data = df
     
     def set_stake_quantity(self, stake: float):
         """
@@ -183,11 +188,57 @@ class Riley:
             #Update current position
             # CURRENT_POSITION = self.strategy.update_current_position(CURRENT_POSITION, ohlc)
 
-            print(ohlc)
+            self.strategy.add_input_value(ohlc)
+            if(CURRENT_POSITION['shares']==0):
+                if self.strategy.check_for_buy(ohlc):
+                    match self.stake_type:
+                        case 'quantity':
+                            cost = self.stake * ohlc['close']
+                            if cost > self.cash:
+                                raise Exception('Not enough cash')
+                            else:
+                                self.cash -= cost
+                                CURRENT_POSITION['shares'] += self.stake
+                                CURRENT_POSITION['price'] = ohlc['close']
+                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
+                        case 'percentage':
+                            cost = self.cash * self.stake
+                            if cost > self.cash:
+                                raise Exception('Not enough cash')
+                            else:
+                                self.cash -= cost
+                                CURRENT_POSITION['shares'] += self.stake
+                                CURRENT_POSITION['price'] = ohlc['close']
+                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
+                        case 'dollars':
+                            cost = self.stake/ohlc['close']
+                            if cost > self.cash:
+                                raise Exception('Not enough cash')
+                            else:
+                                self.cash -= cost
+                                CURRENT_POSITION['shares'] += self.stake
+                                CURRENT_POSITION['price'] = ohlc['close']
+                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
+            elif(CURRENT_POSITION['shares']>0):
+                if self.strategy.check_for_sell(ohlc):
+                    self.cash += CURRENT_POSITION['shares'] * ohlc['close']
+                    CURRENT_POSITION['shares'] = 0
+                    CURRENT_POSITION['price'] = 0
+                    self.account_value = self.cash
+                    
+            else:
+                print("No signal to buy or sell")
             
+            
+        #Update account value
+            
+        if CURRENT_POSITION['shares'] > 0:
+            self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
+        else:
+            self.account_value = self.cash
+                        
         if self.optimization:
             optimization = self.optimize()
             return optimization
         else:
-            print("No optimization")
-            return    
+            return self.account_value   
