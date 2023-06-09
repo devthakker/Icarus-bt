@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import yfinance as yf
 import pandas as pd
 import logging
 
@@ -87,6 +88,23 @@ class Riley:
         else:
             raise Exception('Path is invalid')
         return
+    
+    def get_data_yf(self, ticker: str, start: str, end: str, interval: str='1d'):
+        """
+        Adds data to back instance of Riley with a csv file.
+        
+        Args:
+            ticker (str): The ticker of the stock to get data for.
+            start (str): The start date of the data.
+            end (str): The end date of the data.
+            interval (str): The interval of the data.
+            Options for interval are 1d, 5d, 1wk, 1mo, 3mo"""
+        
+        ticker = yf.Ticker(ticker)
+        
+        df = ticker.history(ticker, start=start, end=end, interval=interval)
+            
+        return df
     
     def set_stake_quantity(self, stake: float):
         """
