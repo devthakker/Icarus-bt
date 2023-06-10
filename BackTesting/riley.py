@@ -26,7 +26,18 @@ class Riley:
         self.stake_type = None
         self.starting_cash = None
         self.account_value = 0
+        self.account_value_history = []
+        self.ticker = ""
         
+    def set_ticker(self, ticker: str):
+        """
+        Sets the ticker to backtest.
+        
+        Args:
+            ticker (str): The ticker to backtest.
+        """
+        self.ticker = ticker
+        return
         
     def set_cash(self, cash: float):
         """
@@ -36,6 +47,7 @@ class Riley:
             cash (float): The amount of cash to start with.
         """
         self.starting_cash = cash
+        self.account_value = cash
         self.cash = cash
         return
     
@@ -151,7 +163,9 @@ class Riley:
         optimization_range = self.strategy.optimization_range
         
     def plot(self):
-        pass
+        # plt.plot(self.account_value_history)
+        plt.plot(self.data['close'])
+        plt.show()
     
     def run(self):
         """
@@ -178,6 +192,9 @@ class Riley:
         endDate = self.data['timestamp'][len(self.data)-1]
         
         for bar in self.data.iterrows():
+            
+            self.account_value_history.append(self.account_value)
+            
             try:
                 #Create dictionary from row
                 ohlc = {'open': bar[1]['open'], 'high': bar[1]['high'], 'low': bar[1]['low'], 'close': bar[1]['close'], 'volume': bar[1]['volume'], 'time': bar[1]['timestamp']}
@@ -226,8 +243,12 @@ class Riley:
                     CURRENT_POSITION['price'] = 0
                     self.account_value = self.cash
                     
+                    
             else:
                 print("No signal to buy or sell")
+                
+            
+
             
             
         #Update account value
