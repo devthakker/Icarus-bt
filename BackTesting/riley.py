@@ -29,7 +29,7 @@ class Riley:
         self.account_value = 0
         self.account_value_history = []
         self.ticker = ""
-        self.metics = []
+        self.metrics = {}
         
     def set_ticker(self, ticker: str):
         """
@@ -161,16 +161,35 @@ class Riley:
         self.stake_type = 'dollars'
         return
     
-    def add_metric(self, metric):
+    def add_metric(self, metric, name: str):
         """
         Adds a metric to track during the backtest.
         
         Args:
             metric: The metric to track.
+            name (str): The name of the metric.
         """
-        self.metrics.append(metric)
-        print(self.metrics)
+        self.metrics[name] = metric   
         return
+        
+    def calculate_metrics(self):
+        """
+        Calculates all metrics.
+        """
+        for metric in self.metrics:
+            match metric:
+                case 'sharpe':
+                    sharpe = self.metrics[metric](list(self.data['close']))
+                    self.metrics[metric] = sharpe.calculate()
+                    print("Sharpe Ratio: " + str(self.metrics[metric]))
+                    import numpy as np
+                    mean = pd.Series(self.account_value_history).pct_change(1).mean() * 252-.01
+                    std = pd.Series(self.account_value_history).pct_change(1).std() * np.sqrt(252)
+                    sharpe = mean / std
+                    print("Sharpe Ratio: " + str(sharpe))
+                    
+                case 'sortino':
+                    pass
         
     
     def optimize(self):
@@ -291,10 +310,7 @@ class Riley:
             PERCENTAGE_CHANGE = round(((FINAL_VALUES['end_value'] - FINAL_VALUES['start_value']) / FINAL_VALUES['start_value']) * 100, 2)
             print(FINAL_VALUES)
             print('Percentage Change: {}%'.format(PERCENTAGE_CHANGE))
-            # sharp = SharpeRatio((self.account_value_history))
-            # # print(np.std(self.account_value_history))
-            # # print(stats.stdev(self.account_value_history))
-            # sharp_ratio = sharp.calculate()
-            # print('Sharpe Ratio: {}'.format(sharp_ratio))
+            if len(self.metrics) > 0:
+                self.calculate_metrics()
 
             return self.account_value   
