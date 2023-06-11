@@ -1,7 +1,7 @@
 from riley import Riley
-import sys
-sys.path.append('../Back-Testing')
+
 from strategy import BollingerBands
+import metrics
 
 # Create an instance of Riley
 riley = Riley()
@@ -10,5 +10,7 @@ riley.add_data_csv('HistoricalData/F.csv')
 riley.set_ticker('F')
 riley.set_strategy(BollingerBands())
 riley.set_stake_quantity(50)
+riley.add_metric(metrics.sharperatio)
 riley.run()
+
 # riley.plot()
