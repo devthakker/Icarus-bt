@@ -176,21 +176,21 @@ class Riley:
         """
         Calculates all metrics.
         """
+        data = {}
         for metric in self.metrics:
             match metric:
                 case 'sharpe':
-                    sharpe = self.metrics[metric](list(self.data['close']))
+                    sharpe = self.metrics[metric](self.account_value_history)
                     self.metrics[metric] = sharpe.calculate()
+                    data['sharpe'] = self.metrics[metric]
                     print("Sharpe Ratio: " + str(self.metrics[metric]))
-                    import numpy as np
-                    mean = pd.Series(self.account_value_history).pct_change(1).mean() * 252-.01
-                    std = pd.Series(self.account_value_history).pct_change(1).std() * np.sqrt(252)
-                    sharpe = mean / std
-                    print("Sharpe Ratio: " + str(sharpe))
-                    
                 case 'sortino':
-                    pass
-        
+                    sor = self.metrics[metric](self.account_value_history)
+                    self.metrics[metric] = sor.calculate()
+                    print("Sortino Ratio: " + str(self.metrics[metric]))
+                    data['sortino'] = self.metrics[metric]
+                    
+        return data
     
     def optimize(self):
         optimization_range = self.strategy.optimization_range
@@ -311,6 +311,8 @@ class Riley:
             print(FINAL_VALUES)
             print('Percentage Change: {}%'.format(PERCENTAGE_CHANGE))
             if len(self.metrics) > 0:
-                self.calculate_metrics()
+                data = self.calculate_metrics()
+                
+            print(data)
 
             return self.account_value   

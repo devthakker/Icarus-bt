@@ -12,6 +12,7 @@ riley.set_ticker('F')
 riley.set_strategy(st.BollingerBands())
 riley.set_stake_quantity(50)
 riley.add_metric(bt.metrics.SharpeRatio, 'sharpe')
+riley.add_metric(bt.metrics.SortinoRatio, 'sortino')
 riley.run()
 
 # riley.plot()
