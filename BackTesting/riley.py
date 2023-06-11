@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
+import numpy as np
 import logging
 from tqdm import tqdm
 from time import sleep
+from metrics.sharpratio import SharpeRatioCalculator
+import statistics as stats
 
 class Riley:
     """
@@ -276,5 +279,12 @@ class Riley:
         
         else:
             FINAL_VALUES = {'start': startDate, 'end': endDate, 'start_value': self.account_value_history[0], 'end_value': self.account_value_history[len(self.account_value_history)-1]}
+            PERCENTAGE_CHANGE = round(((FINAL_VALUES['end_value'] - FINAL_VALUES['start_value']) / FINAL_VALUES['start_value']) * 100, 2)
             print(FINAL_VALUES)
+            print('Percentage Change: {}%'.format(PERCENTAGE_CHANGE))
+            sharp = SharpeRatioCalculator(np.array(self.account_value_history))
+            print(np.std(self.account_value_history))
+            print(stats.stdev(self.account_value_history))
+            sharp_ratio = sharp.calculate()
+            print('Sharpe Ratio: {}'.format(sharp_ratio))
             return self.account_value   
