@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
 import logging
+from tqdm import tqdm
+from time import sleep
 
 class Riley:
     """
@@ -191,6 +193,11 @@ class Riley:
         startDate = self.data['timestamp'][0]
         endDate = self.data['timestamp'][len(self.data)-1]
         
+        length = len(self.data)
+        
+        #Loop through each bar
+        pbar = tqdm(total=length, desc='Backtesting on {}'.format(self.ticker), unit='bars')
+        
         for bar in self.data.iterrows():
             
             self.account_value_history.append(self.account_value)
@@ -247,19 +254,27 @@ class Riley:
             else:
                 print("No signal to buy or sell")
                 
+            pbar.update(1)
+                
             
-
+        pbar.close()
             
             
         #Update account value
             
         if CURRENT_POSITION['shares'] > 0:
-            self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
+            self.account_value = round(self.cash + (CURRENT_POSITION['shares'] * ohlc['close']),2)
+            self.account_value_history.append(self.account_value)
         else:
-            self.account_value = self.cash
-                        
+            self.account_value = round(self.cash,2)
+            self.account_value_history.append(self.account_value)
+            
         if self.optimization:
             optimization = self.optimize()
             return optimization
+                        
+        
         else:
+            FINAL_VALUES = {'start': startDate, 'end': endDate, 'start_value': self.account_value_history[0], 'end_value': self.account_value_history[len(self.account_value_history)-1]}
+            print(FINAL_VALUES)
             return self.account_value   
