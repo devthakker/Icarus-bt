@@ -1,6 +1,6 @@
 import sys
-sys.path.append('../Back-Testing')
-import BackTesting as bt
+sys.path.append('../Icarus-BT')
+import Icarus as bt
 import strategy as st
 
 

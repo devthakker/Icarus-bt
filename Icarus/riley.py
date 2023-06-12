@@ -1,4 +1,4 @@
-from BackTesting.graphs.graph import *
+from Icarus.graphs.graph import *
 import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd

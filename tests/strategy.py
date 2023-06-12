@@ -1,6 +1,6 @@
 from talipp.indicators import *
 import matplotlib.pyplot as plt
-import BackTesting as bt
+import Icarus as bt
 
 class BollingerBands(bt.strategy):
     
@@ -29,14 +29,14 @@ class BollingerBands(bt.strategy):
     def check_for_buy(self, line):
         if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
             if self.BBONE[-1].lb > line['close'] and self.BBTWO[-1].lb < line['close']:
-                # if self.BBONE[-2].lb < line['close']:
+                if self.BBONE[-2].lb < line['close']:
                     return True
         return False
     
     def check_for_sell(self, line):
         if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
             if self.BBONE[-1].ub < line['close'] and self.BBTWO[-1].ub > line['close']:
-                # if self.BBONE[-1].ub > line['close']:
+                if self.BBONE[-2].ub > line['close']:
                     return True
         return False
     
