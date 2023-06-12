@@ -30,6 +30,8 @@ class Riley:
         self.account_value_history = []
         self.ticker = ""
         self.metrics = {}
+        self.pct_change = None
+        self.data_length = None
         
     def set_ticker(self, ticker: str):
         """
@@ -81,6 +83,7 @@ class Riley:
             if 'close' not in df.columns:
                 raise Exception('Data must contain a close column')
             self.data = df
+            self.data_length = len(df)
         else:
             raise Exception('Data must be a pandas dataframe')
         return
@@ -102,6 +105,7 @@ class Riley:
             if 'close' not in df.columns:
                 raise Exception('Data must contain a close column')
             self.data = df
+            self.data_length = len(df)
         else:
             raise Exception('Path is invalid')
         return
@@ -124,6 +128,7 @@ class Riley:
         df.rename(columns={'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close', 'Volume': 'volume'}, inplace=True)
         
         self.data = df
+        self.data_length = len(df)
     
     def set_stake_quantity(self, stake: float):
         """
@@ -195,10 +200,37 @@ class Riley:
     def optimize(self):
         optimization_range = self.strategy.optimization_range
         
-    def plot(self):
-        # plt.plot(self.account_value_history)
-        plt.plot(self.data['close'])
-        plt.show()
+    def plot(self, save: bool=False, name: str='Backtest.png'):
+        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(12, 8))
+        plt.grid(color='w', linestyle='solid')
+        plt.style.use('dark_background')
+        ax1.grid(color='w', linestyle='solid')
+        ax2.grid(color='w', linestyle='solid')
+        ax1.set_facecolor('black')
+        ax2.set_facecolor('black')
+        if self.data['close'][0] > self.data['close'][self.data_length-1]:
+            ax1.plot(self.data['close'], label='Stock Close Price', color='red')
+        else:
+            ax1.plot(self.data['close'], label='Stock Close Price', color='green')
+        ax1.set_title('Backtest on {} - From {} - {}'.format(self.ticker, self.data['timestamp'][0], self.data['timestamp'][self.data_length-1]))
+        ax1.set_ylabel('Stock Price')
+        ax1.legend(loc='upper left')
+        if self.pct_change>0:
+            ax2.plot(self.account_value_history, label='Account Value', color='green')
+        else:
+            ax2.plot(self.account_value_history, label='Account Value', color='red')
+        ax2.set_ylabel('Account Value')
+        ax2.set_xlabel('Time')
+        ax2.legend(loc='upper left')
+        fig.tight_layout()
+        if save == False:
+            plt.show()
+            return
+        else:
+            plt.savefig(name)
+            plt.close()
+            return
+        
     
     def run(self):
         """
@@ -257,7 +289,7 @@ class Riley:
                                 CURRENT_POSITION['price'] = ohlc['close']
                                 self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
                         case 'percentage':
-                            cost = self.cash * self.stake
+                            cost = self.cash * (self.stake/100)
                             if cost > self.cash:
                                 raise Exception('Not enough cash')
                             else:
@@ -308,6 +340,7 @@ class Riley:
         else:
             FINAL_VALUES = {'start': startDate, 'end': endDate, 'start_value': self.account_value_history[0], 'end_value': self.account_value_history[len(self.account_value_history)-1]}
             PERCENTAGE_CHANGE = round(((FINAL_VALUES['end_value'] - FINAL_VALUES['start_value']) / FINAL_VALUES['start_value']) * 100, 2)
+            self.pct_change = PERCENTAGE_CHANGE
             print(FINAL_VALUES)
             print('Percentage Change: {}%'.format(PERCENTAGE_CHANGE))
             if len(self.metrics) > 0:
