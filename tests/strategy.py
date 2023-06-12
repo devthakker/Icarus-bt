@@ -1,9 +1,11 @@
 from talipp.indicators import *
 import matplotlib.pyplot as plt
+import BackTesting as bt
 
-class BollingerBands():
+class BollingerBands(bt.strategy):
     
     def __init__(self, optimize=False, optimize_range=range(1, 100)):
+        super().__init__(optimize, optimize_range)
         self.period = 20
         self.BBONE = BB(self.period, 1)
         self.BBTWO = BB(self.period, 2)
@@ -12,12 +14,6 @@ class BollingerBands():
         self.account_value = 0
         self.account_value_history = []
         self.iterations = []
-        if optimize:
-            self.optimize_range = optimize_range
-            self.optimize_results = {}
-        
-    def graph(self):
-        pass
     
     def update_current_position(self, shares, price):
         self.current_position['shares'] = shares
@@ -37,10 +33,6 @@ class BollingerBands():
                     return True
         return False
     
-    
-    def buy(self, line):
-        pass
-    
     def check_for_sell(self, line):
         if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
             if self.BBONE[-1].ub < line['close'] and self.BBTWO[-1].ub > line['close']:
@@ -48,8 +40,6 @@ class BollingerBands():
                     return True
         return False
     
-    def sell(self, line):
-        pass
     
     
     

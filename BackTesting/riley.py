@@ -5,6 +5,7 @@ import pandas as pd
 import logging
 from tqdm import tqdm
 import numpy as np
+import math
 
 class Riley:
     """
@@ -274,7 +275,7 @@ class Riley:
 
             self.strategy.add_input_value(ohlc)
             if(CURRENT_POSITION['shares']==0):
-                if self.strategy.check_for_buy(ohlc):
+                if self.strategy.check_for_buy(ohlc) == True:
                     match self.stake_type:
                         case 'quantity':
                             cost = self.stake * ohlc['close']
@@ -286,25 +287,27 @@ class Riley:
                                 CURRENT_POSITION['price'] = ohlc['close']
                                 self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
                         case 'percentage':
-                            cost = self.cash * (self.stake/100)
+                            cash = (self.cash * (self.stake/100))
+                            cost = cash/ohlc['close']
                             if cost > self.cash:
                                 raise Exception('Not enough cash')
                             else:
                                 self.cash -= cost
-                                CURRENT_POSITION['shares'] += self.stake
+                                CURRENT_POSITION['shares'] += (cash/ohlc['close'])
                                 CURRENT_POSITION['price'] = ohlc['close']
                                 self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
                         case 'dollars':
-                            cost = self.stake/ohlc['close']
-                            if cost > self.cash:
+                            shares = math.floor(self.stake/ohlc['close'])
+                            cost = shares * ohlc['close']
+                            if cost > self.stake:
                                 raise Exception('Not enough cash')
                             else:
                                 self.cash -= cost
-                                CURRENT_POSITION['shares'] += self.stake
+                                CURRENT_POSITION['shares'] == shares
                                 CURRENT_POSITION['price'] = ohlc['close']
                                 self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
             elif(CURRENT_POSITION['shares']>0):
-                if self.strategy.check_for_sell(ohlc):
+                if self.strategy.check_for_sell(ohlc) == True:
                     self.cash += CURRENT_POSITION['shares'] * ohlc['close']
                     CURRENT_POSITION['shares'] = 0
                     CURRENT_POSITION['price'] = 0
@@ -312,7 +315,8 @@ class Riley:
                     
                     
             else:
-                print("No signal to buy or sell")
+                # print("No signal to buy or sell")
+                pass
                 
             pbar.update(1)
                 
@@ -323,7 +327,7 @@ class Riley:
         #Update account value
             
         if CURRENT_POSITION['shares'] > 0:
-            self.account_value = round(self.cash + (CURRENT_POSITION['shares'] * ohlc['close']),2)
+            self.account_value = round(self.cash + (CURRENT_POSITION['shares'] * CURRENT_POSITION['price']),2)
             self.account_value_history.append(self.account_value)
         else:
             self.account_value = round(self.cash,2)
