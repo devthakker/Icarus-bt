@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import logging
 from tqdm import tqdm
+import numpy as np
 
 class Riley:
     """
@@ -200,12 +201,47 @@ class Riley:
     def optimize(self):
         optimization_range = self.strategy.optimization_range
         
+    def plot_bar(self, save: bool=False, name: str='Backtest.png'):
+        """
+        Plots the backtest as a bar chart.
+        
+        Args:
+            save (bool): Whether or not to save the plot.
+            name (str): The name of the plot.
+        """
+
+        x = np.arange(0,self.data_length)
+        fig, ax = plt.subplots(1, figsize=(12,6))
+        ax.set_title('Backtest on {} - From {} - {}'.format(self.ticker, self.data['timestamp'][0], self.data['timestamp'][self.data_length-1]))
+
+        for idx, val in self.data.iterrows():
+            color = '#2CA453'
+            if val['open'] > val['close']: color= '#F04730'
+            plt.plot([x[idx], x[idx]], [val['low'], val['high']], color=color)
+            plt.plot([x[idx], x[idx]-0.1], [val['open'], val['open']], color=color)
+            plt.plot([x[idx], x[idx]+0.1], [val['close'], val['close']], color=color)
+            
+        # ticks
+        plt.ylabel('USD')# grid
+        ax.xaxis.grid(color='black', linestyle='dashed', which='both', alpha=0.1)# remove spines
+        ax.spines['right'].set_visible(False)
+        ax.spines['top'].set_visible(False)
+        if save == False:
+            plt.show()
+            return
+        else:
+            plt.savefig(name)
+            plt.close()
+            return
+        
     def plot(self, save: bool=False, name: str='Backtest.png'):
+        """
+        """
         fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(12, 8))
-        plt.grid(color='w', linestyle='solid')
-        plt.style.use('dark_background')
-        ax1.grid(color='w', linestyle='solid')
-        ax2.grid(color='w', linestyle='solid')
+        ax1.grid(color='grey', linestyle='solid')
+        ax2.grid(color='grey', linestyle='solid')
+        import numpy as np
+        x = np.arange(0, self.data_length)
         ax1.set_facecolor('black')
         ax2.set_facecolor('black')
         if self.data['close'][0] > self.data['close'][self.data_length-1]:
@@ -214,6 +250,14 @@ class Riley:
             ax1.plot(self.data['close'], label='Stock Close Price', color='green')
         ax1.set_title('Backtest on {} - From {} - {}'.format(self.ticker, self.data['timestamp'][0], self.data['timestamp'][self.data_length-1]))
         ax1.set_ylabel('Stock Price')
+        
+        ticks = int(self.data_length/8)
+        
+        # print((self.data['timestamp'][::ticks][0][0:11]))
+        # plt.xticks = (x[::ticks],self.data['timestamp'][::ticks])
+        # print(self.data['timestamp'][::ticks])
+        ax2.set_xticks(x[::ticks],self.data['timestamp'][::ticks].apply(lambda x: x[0:11]))
+        
         ax1.legend(loc='upper left')
         if self.pct_change>0:
             ax2.plot(self.account_value_history, label='Account Value', color='green')
