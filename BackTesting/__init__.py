@@ -1,3 +1,3 @@
 from .riley import *
 from.metrics import *
-from .graph import *
+from .graphs import *
