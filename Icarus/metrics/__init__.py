@@ -1,6 +1,6 @@
 from .sharperatio import *
 from .sortinoratio import *
-# from .maxdrawdown import *
+from .maxdrawdown import *
 # from .annualizedreturn import *
 # from .annualizedvolatility import *
 # from .informationratio import *
