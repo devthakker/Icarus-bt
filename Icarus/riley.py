@@ -4,7 +4,6 @@ import yfinance as yf
 import pandas as pd
 import logging
 from tqdm import tqdm
-import numpy as np
 import math
 
 class Riley:
