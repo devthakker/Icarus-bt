@@ -1,4 +1,5 @@
 from Icarus.graphs.graph import *
+from Icarus.source import *
 import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
@@ -67,70 +68,19 @@ class Riley:
         self.strategy = strategy
         return
     
-    def add_data_dataframe(self, data: pd.DataFrame):
+    def add_data(self, data):
         """
-        Adds data to back instance of Riley with a pandas dataframe.
+        Adds data to back instance of Riley.
         
         Args:
-            data (pd.DataFrame): The data to backtest on.
+            data (csv or pd.DataFrame): The data to backtest on.
         """
-        if isinstance(data, pd.DataFrame):
-            df = pd.DataFrame(data)
-            if 'open' not in df.columns:
-                raise Exception('Data must contain an open column')
-            if 'high' not in df.columns:
-                raise Exception('Data must contain a high column')
-            if 'low' not in df.columns:
-                raise Exception('Data must contain a low column')
-            if 'close' not in df.columns:
-                raise Exception('Data must contain a close column')
-            self.data = df
-            self.data_length = len(df)
+        if isinstance(data.data, pd.DataFrame):
+            self.data = data.data
+            self.data_length = data.data_length
         else:
             raise Exception('Data must be a pandas dataframe')
         return
-    
-    def add_data_csv(self, path: str):
-        """
-        Adds data to back instance of Riley with a csv file.
-        
-        Args:
-            path (str): The path to the csv file."""
-        if isinstance(path, str):
-            df = pd.read_csv(path)
-            if 'open' not in df.columns:
-                raise Exception('Data must contain an open column')
-            if 'high' not in df.columns:
-                raise Exception('Data must contain a high column')
-            if 'low' not in df.columns:
-                raise Exception('Data must contain a low column')
-            if 'close' not in df.columns:
-                raise Exception('Data must contain a close column')
-            self.data = df
-            self.data_length = len(df)
-        else:
-            raise Exception('Path is invalid')
-        return
-    
-    def get_data_yf(self, ticker: str, start: str, end: str, interval: str='1d'):
-        """
-        Adds data to back instance of Riley with a csv file.
-        
-        Args:
-            ticker (str): The ticker of the stock to get data for.
-            start (str): The start date of the data.
-            end (str): The end date of the data.
-            interval (str): The interval of the data.
-            Options for interval are 1d, 5d, 1wk, 1mo, 3mo"""
-        
-        ticker = yf.Ticker(ticker)
-        
-        df = ticker.history(ticker, start=start, end=end, interval=interval)
-        
-        df.rename(columns={'Open': 'open', 'High': 'high', 'Low': 'low', 'Close': 'close', 'Volume': 'volume'}, inplace=True)
-        
-        self.data = df
-        self.data_length = len(df)
     
     def set_stake_quantity(self, stake: float):
         """
@@ -222,7 +172,6 @@ class Riley:
             save (bool): Whether or not to save the plot.
             name (str): The name of the plot.
         """
-        
         plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history)
         plot.plot(save=save, name=name)
         return

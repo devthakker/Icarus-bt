@@ -32,7 +32,7 @@ class Graph:
             save (bool, optional): Save the plot to a file. Defaults to False.
             name (str, optional): Name of the file to save. Defaults to 'Backtest.png'.
         """
-        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(12, 8))
+        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=False, figsize=(12, 8))
         ax1.grid(color='grey', linestyle='solid')
         ax2.grid(color='grey', linestyle='solid')
         import numpy as np
@@ -47,7 +47,8 @@ class Graph:
         ax1.set_ylabel('Stock Price')
         
         ticks = int(self.data_length/8)
-    
+        ax1.set_xticks(x[::ticks],self.data['timestamp'][::ticks].apply(lambda x: x[0:11]))
+
         ax2.set_xticks(x[::ticks],self.data['timestamp'][::ticks].apply(lambda x: x[0:11]))
         
         ax1.legend(loc='upper left')
