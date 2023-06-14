@@ -17,12 +17,13 @@ class Graph:
         plot: Plots the data.
         plot_bar: Plots the data as a bar graph.
     """
-    def __init__(self, data, data_length, ticker, pct, hist):
+    def __init__(self, data, data_length, ticker, pct, hist, metrics):
         self.data = data
         self.data_length = data_length
         self.ticker = ticker
         self.pct_change = pct
         self.account_value_history = hist
+        self.metrics = metrics
         
     def plot(self, save: bool = False, name: str = 'Backtest.png'):
         """
@@ -32,7 +33,7 @@ class Graph:
             save (bool, optional): Save the plot to a file. Defaults to False.
             name (str, optional): Name of the file to save. Defaults to 'Backtest.png'.
         """
-        fig, (ax1, ax2) = plt.subplots(2, 1, sharex=False, figsize=(12, 8))
+        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex=False, figsize=(12, 8))
         ax1.grid(color='grey', linestyle='solid')
         ax2.grid(color='grey', linestyle='solid')
         import numpy as np
@@ -59,6 +60,20 @@ class Graph:
         ax2.set_ylabel('Account Value')
         ax2.set_xlabel('Time')
         ax2.legend(loc='upper left')
+        
+        data = pd.DataFrame(self.metrics, index=['  '+self.ticker+ '  '])
+             
+        ax3.table(cellText=np.round(data.values,2), colLabels=data.columns,
+                  rowLabels=data.index,rowLoc='center',cellLoc='center',loc='top',
+                  colWidths=[0.25]*len(data.columns))
+            
+        # ax3.table(cellText=data.values, colLabels=data.columns, loc='center')
+        ax3.axis('off')
+        ax3.axis('tight')
+        ax3.set_facecolor('black')
+        ax3.grid(color='grey', linestyle='solid')
+        
+        
         fig.tight_layout()
         if save == False:
             plt.show()
