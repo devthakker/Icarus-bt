@@ -35,6 +35,7 @@ class Riley:
         self.metrics = {}
         self.pct_change = None
         self.data_length = None
+        self.final_value = None
         
     def set_ticker(self, ticker: str):
         """
@@ -156,6 +157,16 @@ class Riley:
                     self.metrics[metric] = calmar.calculate()
                     print("Calmar Ratio: " + str(self.metrics[metric]))
                     data['calmar'] = self.metrics[metric]
+                case 'annualreturn':
+                    annual_return = self.metrics[metric](self.account_value_history)
+                    self.metrics[metric] = annual_return.calculate()
+                    print("Annual Return: " + str(self.metrics[metric]))
+                    data['annual_return'] = self.metrics[metric]
+                case 'totalreturn':
+                    total_return = self.metrics[metric](self.starting_cash, self.final_values['end_value'])
+                    self.metrics[metric] = total_return.calculate()
+                    print("Total Return: " + str(self.metrics[metric]))
+                    data['total_return'] = self.metrics[metric]
                     
         return data
     
@@ -298,6 +309,7 @@ class Riley:
         
         else:
             FINAL_VALUES = {'start': startDate, 'end': endDate, 'start_value': self.account_value_history[0], 'end_value': self.account_value_history[len(self.account_value_history)-1]}
+            self.final_values = FINAL_VALUES
             PERCENTAGE_CHANGE = round(((FINAL_VALUES['end_value'] - FINAL_VALUES['start_value']) / FINAL_VALUES['start_value']) * 100, 2)
             self.pct_change = PERCENTAGE_CHANGE
             print(FINAL_VALUES)

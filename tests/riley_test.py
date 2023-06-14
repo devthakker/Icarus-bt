@@ -38,6 +38,10 @@ riley.set_stake_quantity(50)
 # Add metrics to the backtest engine
 riley.add_metric(ic.metrics.SharpeRatio, 'sharpe')
 riley.add_metric(ic.metrics.SortinoRatio, 'sortino')
+riley.add_metric(ic.metrics.MaxDrawdown, 'maxdrawdown')
+riley.add_metric(ic.metrics.CalmarRatio, 'calmar')
+riley.add_metric(ic.metrics.AnnualizedReturn, 'annualreturn')
+riley.add_metric(ic.metrics.TotalReturn, 'totalreturn')
 
 # Run the backtest
 riley.run()
