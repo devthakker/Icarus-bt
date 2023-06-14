@@ -6,7 +6,7 @@
 # Riley: Backtesting Engine for Trading Strategies
 
 ## Overview
-Riley is a Python package designed to facilitate the backtesting of trading strategies. It provides a framework to simulate and evaluate trading decisions based on historical data, calculate various performance metrics, and generate graphical representations of the results. Riley is equipped with features to compute metrics like Sharpe ratio and Sortino ratio, allowing traders and quantitative analysts to assess the risk-adjusted returns of their strategies.
+Icarus is a Python package designed to facilitate the backtesting of trading strategies. It provides a framework to simulate and evaluate trading decisions based on historical data, calculate various performance metrics, and generate graphical representations of the results. Riley is equipped with features to compute metrics like Sharpe ratio and Sortino ratio, allowing traders and quantitative analysts to assess the risk-adjusted returns of their strategies.
 
 ## Features
 1. Backtesting: Riley enables users to simulate the execution of trading strategies on historical data. It supports various order types, including market orders, limit orders, and stop orders, allowing for flexible trade execution scenarios.
@@ -15,17 +15,18 @@ Riley is a Python package designed to facilitate the backtesting of trading stra
    - Sharpe Ratio: Measures the risk-adjusted return of a strategy.
    - Sortino Ratio: Similar to Sharpe Ratio, but focuses on downside risk.
    - Maximum Drawdown: Determines the largest peak-to-trough decline in strategy value.
+   - Calmar Ratio: Measures the risk-adjusted return of a strategy relative to its maximum drawdown.
    - Annualized Returns: Calculates the compounded annual growth rate of the strategy.
    - Total Return: Computes the overall return of the strategy.
 
-3. Data Sources: Riley provides support for multiple data sources, including Yahoo Finance (via `yfinance`) and CSV files. This allows users to easily fetch historical price data or load data from their own sources.
+3. Data Sources: Icarus provides support for multiple data sources, including Yahoo Finance (via `yfinance`) and CSV files. This allows users to easily fetch historical price data or load data from their own sources.
 
 4. Graphical Representation: Riley provides capabilities to generate graphical representations of backtesting results. This includes visualizations of strategy performance, equity curves, trade signals, and other relevant data.
 
 ## Installation
-To install Riley, follow these steps:
+To install Icarus, follow these steps:
 
-1. Ensure that you have Python 3.6 or above installed on your system.
+1. Ensure that you have Python 3.7 or above installed on your system.
 2. Open a terminal or command prompt.
 3. Run the following command to install Riley using pip:
 
@@ -34,7 +35,7 @@ pip install ICARUS-BT
 ```
 
 ## Getting Started
-To begin using Riley for backtesting trading strategies, follow the example below:
+To begin using Icarus for backtesting trading strategies, follow the example below:
 
 ```python
 from riley import BacktestEngine
@@ -70,12 +71,12 @@ backtester.plot_results()
 For more information on how to use Riley, please refer to the [documentation](https://icarus-bt.readthedocs.io/en/latest/).
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE]
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
-Riley is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository.
+Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository.
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to the development team at dthakker@gmail.com
 
-We hope Riley proves to be a valuable tool for backtesting and evaluating your trading strategies. Happy trading!
+We hope Icarus proves to be a valuable tool for backtesting and evaluating your trading strategies. Happy trading!
