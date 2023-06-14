@@ -146,6 +146,16 @@ class Riley:
                     self.metrics[metric] = sor.calculate()
                     print("Sortino Ratio: " + str(self.metrics[metric]))
                     data['sortino'] = self.metrics[metric]
+                case 'maxdrawdown':
+                    mdd = self.metrics[metric](self.account_value_history)
+                    self.metrics[metric] = mdd.calculate()
+                    print("Max Drawdown: " + str(self.metrics[metric]))
+                    data['max_drawdown'] = self.metrics[metric]
+                case 'calmar':
+                    calmar = self.metrics[metric](self.account_value_history)
+                    self.metrics[metric] = calmar.calculate()
+                    print("Calmar Ratio: " + str(self.metrics[metric]))
+                    data['calmar'] = self.metrics[metric]
                     
         return data
     

@@ -1,12 +1,12 @@
 from .sharperatio import *
 from .sortinoratio import *
 from .maxdrawdown import *
+from .calmar import *
 # from .annualizedreturn import *
 # from .annualizedvolatility import *
 # from .informationratio import *
 # from .betaratio import *
 # from .alpharatio import *
-# from .calmaratio import *
 # from .treynorratio import *
 # from .upsidepotentialratio import *
 # from .downsidepotentialratio import *
