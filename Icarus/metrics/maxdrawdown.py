@@ -1,8 +1,14 @@
 class MaxDrawdown:
+    """
+    Calculates the maximum drawdown of a series of returns.
+    """
     def __init__(self, returns):
         self.returns = returns
 
     def calculate(self):
+        """
+        Calculates the maximum drawdown of a series of returns.
+        """
         peak = self.returns[0]
         drawdown = 0.0
         max_drawdown = 0.0
