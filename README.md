@@ -12,12 +12,12 @@ Icarus is a Python package designed to facilitate the backtesting of trading str
 1. Backtesting: Riley enables users to simulate the execution of trading strategies on historical data. It supports various order types, including market orders, limit orders, and stop orders, allowing for flexible trade execution scenarios.
 
 2. Performance Metrics: The package includes functions to calculate essential performance metrics commonly used in financial analysis. These metrics include but are not limited to the following:
-   - Sharpe Ratio: Measures the risk-adjusted return of a strategy.
-   - Sortino Ratio: Similar to Sharpe Ratio, but focuses on downside risk.
-   - Maximum Drawdown: Determines the largest peak-to-trough decline in strategy value.
-   - Calmar Ratio: Measures the risk-adjusted return of a strategy relative to its maximum drawdown.
-   - Annualized Returns: Calculates the compounded annual growth rate of the strategy.
-   - Total Return: Computes the overall return of the strategy.
+   - [Sharpe Ratio: Measures the risk-adjusted return of a strategy.](https://www.investopedia.com/terms/s/sharperatio.asp)
+   - [Sortino Ratio: Similar to Sharpe Ratio, but focuses on downside risk.](https://www.investopedia.com/terms/s/sortinoratio.asp)
+   - [Maximum Drawdown: Determines the largest peak-to-trough decline in strategy value.](https://www.investopedia.com/terms/m/maximum-drawdown-mdd.asp)
+   - [Calmar Ratio: Measures the risk-adjusted return of a strategy relative to its maximum drawdown.](https://www.investopedia.com/terms/c/calmarratio.asp)
+   - [Annualized Returns: Calculates the compounded annual growth rate of the strategy.](https://www.investopedia.com/terms/a/annualized-total-return.asp)
+   - [Total Return: Computes the overall return of the strategy.](https://www.investopedia.com/terms/t/totalreturn.asp)
 
 3. Data Sources: Icarus provides support for multiple data sources, including Yahoo Finance (via `yfinance`) and CSV files. This allows users to easily fetch historical price data or load data from their own sources.
 
@@ -38,33 +38,51 @@ pip install ICARUS-BT
 To begin using Icarus for backtesting trading strategies, follow the example below:
 
 ```python
-from riley import BacktestEngine
-import yfinance as yf
+import Icarus as ic
+import strategy as st
+
 
 # Create an instance of the BacktestEngine
-backtester = BacktestEngine()
+riley = ic.Riley()
 
-# Fetch historical price data from Yahoo Finance
-symbol = "AAPL"  # Replace with your desired symbol
-data = yf.download(symbol, start="2010-01-01", end="2023-06-11")
-backtester.set_data(data)
+# Set Cash Amount
+riley.set_cash(10000)
 
-# Alternatively, read data from a CSV file
-# data = pd.read_csv("path/to/data.csv")
-# backtester.set_data(data)
+# Fetch data chosen source
+data = ic.source.csv('HistoricalData/F.csv')
 
-# Define your trading strategy
-strategy = ...  # Implement your trading strategy here
+# Alternatively, pull data from Yahoo Finance
+# Also, you can specify the start and end dates
 
-# Run the backtest using the strategy
-backtester.run_backtest(strategy)
+# data = bt.source.PandasDF(data.data)
+# data = bt.source.yFinance('F', '2020-01-01', '2020-12-31')
 
-# Calculate performance metrics
-sharpe_ratio = backtester.calculate_sharpe_ratio()
-sortino_ratio = backtester.calculate_sortino_ratio()
+# Add data to the backtest engine
+riley.add_data(data)
+
+# Set the ticker for the backtest
+riley.set_ticker('F')
+
+#Add the strategy class
+riley.set_strategy(st.BollingerBands())
+
+# Set the stake amount
+riley.set_stake_quantity(50)
+
+# Alternatively, you can set the stake percentage or the stake dollars
+# riley.set_stake_percentage(100)
+# riley.set_stake_dollars(1000)
+
+# Add metrics to the backtest engine
+riley.add_metric(ic.metrics.SharpeRatio, 'sharpe')
+riley.add_metric(ic.metrics.SortinoRatio, 'sortino')
+
+# Run the backtest
+riley.run()
 
 # Generate graphical representation of the backtest results
-backtester.plot_results()
+riley.plot()
+# riley.plot_bar()
 ```
 
 ## Documentation

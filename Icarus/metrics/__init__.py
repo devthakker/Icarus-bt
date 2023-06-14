@@ -2,7 +2,8 @@ from .sharperatio import *
 from .sortinoratio import *
 from .maxdrawdown import *
 from .calmar import *
-# from .annualizedreturn import *
+from .annualizedreturn import *
+from .totalreturn import *
 # from .annualizedvolatility import *
 # from .informationratio import *
 # from .betaratio import *
