@@ -5,6 +5,11 @@
 
 # Riley: Backtesting Engine for Trading Strategies
 
+[![Python](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/release/python-370/)
+[![PyPI](https://img.shields.io/pypi/v/icarus-bt?color=blue)](https://pypi.org/project/icarus-bt/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/icarus-bt?color=blue)](https://img.shields.io/github/downloads/devthakker/icarus-bt/total.svg)
+![GitHub](https://img.shields.io/pypi/l/icarus-bt?color=blue)
+
 ## Overview
 Icarus is a Python package designed to facilitate the backtesting of trading strategies. It provides a framework to simulate and evaluate trading decisions based on historical data, calculate various performance metrics, and generate graphical representations of the results. Riley is equipped with features to compute metrics like Sharpe ratio and Sortino ratio, allowing traders and quantitative analysts to assess the risk-adjusted returns of their strategies.
 
