@@ -106,7 +106,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository, as well as detailed information on what is changed, added, or improved.
 
 ## Contact
-If you have any questions, suggestions, or feedback, feel free to reach out to the development team at dthakker@gmail.com
+If you have any questions, suggestions, or feedback, feel free to reach out to the development team at devin.thakker@outlook.com
 
 We hope Icarus proves to be a valuable tool for backtesting and evaluating your trading strategies. Happy trading!
 
