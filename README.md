@@ -97,9 +97,13 @@ For more information on how to use Riley, please refer to the [documentation](ht
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
-Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository.
+Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository, as well as detailed information on what is changed, added, or improved.
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to the development team at dthakker@gmail.com
 
 We hope Icarus proves to be a valuable tool for backtesting and evaluating your trading strategies. Happy trading!
+
+## Credits
+
+- Devin Thakker \<<devin.thakker@outlook.com>>
