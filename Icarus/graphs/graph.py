@@ -63,15 +63,17 @@ class Graph:
         
         data = pd.DataFrame(self.metrics, index=['  '+self.ticker+ '  '])
              
-        ax3.table(cellText=np.round(data.values,2), colLabels=data.columns,
-                  rowLabels=data.index,rowLoc='center',cellLoc='center',loc='top',
-                  colWidths=[0.25]*len(data.columns))
+        # ax3.table(cellText=np.round(data.values,2), colLabels=data.columns,
+        #           rowLabels=data.index,rowLoc='center',cellLoc='center',loc='top',
+        #           colWidths=[0.25]*len(data.columns))
             
-        # ax3.table(cellText=data.values, colLabels=data.columns, loc='center')
-        ax3.axis('off')
-        ax3.axis('tight')
+        # # ax3.table(cellText=data.values, colLabels=data.columns, loc='center')
+        # ax3.axis('off')
+        ax3.set_title('Metrics')
         ax3.set_facecolor('black')
-        ax3.grid(color='grey', linestyle='solid')
+        # ax3.grid(color='grey', linestyle='solid')
+        ax3.bar(data.columns, data.values[0])
+        
         
         
         fig.tight_layout()

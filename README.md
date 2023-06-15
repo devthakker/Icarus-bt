@@ -59,8 +59,8 @@ data = ic.source.csv('HistoricalData/F.csv')
 # Alternatively, pull data from Yahoo Finance
 # Also, you can specify the start and end dates
 
-# data = bt.source.PandasDF(data.data)
-# data = bt.source.yFinance('F', '2020-01-01', '2020-12-31')
+# data = ic.source.PandasDF(data.data)
+# data = ic.source.yFinance('F', '2020-01-01', '2020-12-31')
 
 # Add data to the backtest engine
 riley.add_data(data)

@@ -181,7 +181,7 @@ class Riley:
             save (bool): Whether or not to save the plot.
             name (str): The name of the plot.
         """
-        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history)
+        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
         plot.plot_bar(save=save, name=name)
         return
         
