@@ -11,7 +11,7 @@ riley = ic.Riley()
 riley.set_cash(10000)
 
 # Fetch data chosen source
-data = ic.source.csv('HistoricalData/F.csv')
+data = ic.source.csv('SampleData/F.csv')
 
 # Alternatively, pull data from Yahoo Finance
 # Also, you can specify the start and end dates
