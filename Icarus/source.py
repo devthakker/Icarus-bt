@@ -2,6 +2,9 @@ import pandas as pd
 import yfinance as yf
 
 class csv:
+    """
+    CSV data source class
+    """
     def __init__(self, path: str):
         self.path = path
         if isinstance(path, str):
@@ -20,6 +23,9 @@ class csv:
             raise Exception('Path is invalid')
         
 class PandasDF:
+    """
+    Pandas dataframe data source class
+    """
     def __init__(self, data: pd.DataFrame):
         if isinstance(data, pd.DataFrame):
             df = pd.DataFrame(data)
@@ -39,6 +45,9 @@ class PandasDF:
  
 
 class yFinance:
+    """
+    yFinance data source class
+    """
     def __init__(self, ticker: str, start: str, end: str, interval: str='1d'):
         """
         Adds data to back instance of Riley with a csv file.
