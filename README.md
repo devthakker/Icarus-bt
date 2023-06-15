@@ -90,6 +90,12 @@ riley.plot()
 # riley.plot_bar()
 ```
 
+## Graphical Representation
+Icarus provides capabilities to generate graphical representations of backtesting results. This includes visualizations of strategy performance, equity curves, trade signals, and other relevant data.
+
+![ICARUS-BT](./Backtest.png?raw=true)
+
+
 ## Documentation
 For more information on how to use Riley, please refer to the [documentation](https://icarus-bt.readthedocs.io/en/latest/).
 
