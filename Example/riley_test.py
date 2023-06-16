@@ -11,13 +11,13 @@ riley = ic.Riley()
 riley.set_cash(10000)
 
 # Fetch data chosen source
-data = ic.source.csv('SampleData/F.csv')
+# data = ic.source.csv('SampleData/F.csv')
 
 # Alternatively, pull data from Yahoo Finance
 # Also, you can specify the start and end dates
 
 # data = ic.source.PandasDF(data.data)
-# data = ic.source.yFinance('F', '2020-01-01', '2020-12-31')
+data = ic.source.yFinance('F', '2020-01-01', '2020-12-31')
 
 # Add data to the backtest engine
 riley.add_data(data)
@@ -47,5 +47,7 @@ riley.add_metric(ic.metrics.AnnualizedReturn, 'annualreturn')
 riley.run()
 
 # Generate graphical representation of the backtest results
-riley.plot()
+# riley.plot()
 # riley.plot_bar(True, 'Backtestbar.png')
+
+riley.plot_candlestick()

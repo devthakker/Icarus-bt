@@ -197,6 +197,13 @@ class Riley:
         plot.plot(save=save, name=name)
         return
         
+    def plot_candlestick(self,mav: tuple=(3,5), save: bool=False, name: str='Backtest.png'):
+        """
+        Plots the backtest as a candlestick chart.
+        """
+        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
+        plot.mpl(mav, save=save, name=name)
+        return
         
     
     def run(self):

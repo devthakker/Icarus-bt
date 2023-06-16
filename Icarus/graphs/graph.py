@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import mplfinance as mpf
 import numpy as np
 import pandas as pd
 
@@ -117,3 +118,9 @@ class Graph:
             plt.savefig(name)
             plt.close()
             return
+        
+    def mpl(self, mav: tuple=(3,5), save: bool = False, name: str = 'Backtest.png'):
+        """
+        Plots the backtest using mplfinance.
+        """
+        mpf.plot(self.data, type='candle', style='classic',mav=mav, volume=True, title='Backtest on {} - From {} - {}'.format(self.ticker, self.data['timestamp'][0], self.data['timestamp'][self.data_length-1]))
