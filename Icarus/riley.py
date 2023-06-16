@@ -202,7 +202,7 @@ class Riley:
         Plots the backtest as a candlestick chart.
         """
         plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
-        plot.mpl(mav, save=save, name=name)
+        plot.mpl(mav)
         return
         
     
