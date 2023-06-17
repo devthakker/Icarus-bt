@@ -95,6 +95,11 @@ Icarus provides capabilities to generate graphical representations of backtestin
 
 ![ICARUS-BT](./Backtest.png?raw=true)
 
+## Candlestick Charts
+Icarus provides capabilities to generate candlestick charts for the backtested ticker. This allows users to visualize the price action of the ticker over the backtesting period.
+
+![ICARUS-BT](./Candlestick.png?raw=true)
+
 
 ## Documentation
 For more information on how to use Riley, please refer to the [documentation](https://icarus-bt.readthedocs.io/en/latest/).

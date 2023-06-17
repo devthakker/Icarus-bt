@@ -6,6 +6,6 @@ from .EMA import EMA
 from .CCI import CCI
 from .STOCHOSCILLATOR import STOCHOSCILLATOR
 from .VWAP import VWAP
-from .ATR import ATR
+from .ATR import AverageTrueRange
 from .ADX import ADX
 from .OHLCV import *

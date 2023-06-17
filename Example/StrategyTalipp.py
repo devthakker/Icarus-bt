@@ -19,15 +19,15 @@ class BollingerBands(ic.strategy):
         # If you define them in a separate method, you must call that method here
         # This is how you will evaluate whether to send a buy or sell signal
         self.period = 20
-        self.BBONE = ic.indicators.BollingerBands(self.period, 1)
-        self.BBTWO = ic.indicators.BollingerBands(self.period, 2)
+        self.BBONE = BB(self.period, 1)
+        self.BBTWO = BB(self.period, 2)
     
     
     # Necessary method to add input values to your indicators in the case of using this indicator package
     def add_input_value(self, line):
         # Add the input value to your indicators
-        self.BBONE.add_data_point(line['close'])
-        self.BBTWO.add_data_point(line['close'])
+        self.BBONE.add_input_value(line['close'])
+        self.BBTWO.add_input_value(line['close'])
 
     # Necessary methods to check for buy and sell signals
     # These methods will be called by the backtest engine
@@ -43,8 +43,8 @@ class BollingerBands(ic.strategy):
     # If it returns false, no buy signal will be sent
     
     def check_for_buy(self, line):
-        if self.BBONE.has_output() and self.BBTWO.has_output():
-            if self.BBONE.get_BollingerBands()[2] > line['close'] and self.BBTWO.get_BollingerBands()[2] < line['close']:
+        if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
+            if self.BBONE[-1].lb > line['close'] and self.BBTWO[-1].lb < line['close']:
                 return True
         return False
     
@@ -54,8 +54,8 @@ class BollingerBands(ic.strategy):
     # If it returns false, no sell signal will be sent
     
     def check_for_sell(self, line):
-        if self.BBONE.has_output() and self.BBTWO.has_output():
-            if self.BBONE.get_BollingerBands()[0] < line['close'] and self.BBTWO.get_BollingerBands()[0] > line['close']:
+        if self.BBONE.has_output_value() and self.BBTWO.has_output_value():
+            if self.BBONE[-1].ub < line['close'] and self.BBTWO[-1].ub > line['close']:
                 return True
         return False
     

@@ -32,9 +32,9 @@ class BollingerBands:
         data = pd.DataFrame(self.data)
         rolling_mean = data.rolling(window=self.window).mean()
         rolling_std = data.rolling(window=self.window).std()
-        self.upper_band.append(rolling_mean + (self.num_std * rolling_std))
-        self.middle_band.append(rolling_mean)
-        self.lower_band.append(rolling_mean - (self.num_std * rolling_std))
+        self.upper_band = rolling_mean + (self.num_std * rolling_std)
+        self.middle_band = (rolling_mean)
+        self.lower_band = (rolling_mean - (self.num_std * rolling_std))
         return
     
     def add_data_point(self, new_data_point):
@@ -48,6 +48,15 @@ class BollingerBands:
         if self.upper_band is not None:
             self.calculate()
         return
+    
+    def has_output(self):
+        """
+        Returns True if the Bollinger Bands have been calculated.
+        
+        Returns:
+            bool: True if the Bollinger Bands have been calculated.
+        """
+        return len(self.upper_band) > 0
             
     def get_BollingerBands(self):
         """
@@ -57,37 +66,7 @@ class BollingerBands:
             tuple: A tuple containing three current values for: upper_band, middle_band, and lower_band.
         """
         return (float(self.upper_band.values[-1]), float(self.middle_band.values[-1]), float(self.lower_band.values[-1]))
-    
-    def plot_show(self):
-        """
-        Plot the Bollinger Bands calculated.
-        """
-        plt.figure(figsize=(12,6))
-        plt.title('Bollinger Bands - Period {} - {} Std. Deviation'.format(self.window, self.num_std))
-        plt.plot(self.data, label='Price')
-        plt.plot(self.upper_band[-1].values, label='Upper Band')
-        plt.plot(self.middle_band[-1].values, label='Middle Band')
-        plt.plot(self.lower_band[-1].values, label='Lower Band')
-        plt.legend(loc='upper left')
-        plt.show()
-        return
-    
-    def plot_save(self, path):
-        """
-        Save the Bollinger Bands calculated to a file.
-        
-        Parameters:
-            path (str): The path to the file where the Bollinger Bands plot is to be saved.
-        """
-        plt.figure(figsize=(12,6))
-        plt.title('Bollinger Bands - Period {} - {} Std. Deviation'.format(self.window, self.num_std))
-        plt.plot(self.data, label='Price')
-        plt.plot(self.upper_band[-1].values, label='Upper Band')
-        plt.plot(self.middle_band[-1].values, label='Middle Band')
-        plt.plot(self.lower_band[-1].values, label='Lower Band')
-        plt.legend(loc='upper left')
-        plt.savefig(path)
-        return
+
     
     
     
