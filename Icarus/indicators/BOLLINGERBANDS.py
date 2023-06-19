@@ -35,6 +35,11 @@ class BollingerBands:
         self.upper_band = rolling_mean + (self.num_std * rolling_std)
         self.middle_band = (rolling_mean)
         self.lower_band = (rolling_mean - (self.num_std * rolling_std))
+        if len(self.data) > 20:
+            self.upper_band = self.upper_band.iloc[self.window-1:]
+            self.middle_band = self.middle_band.iloc[self.window-1:]
+            self.lower_band = self.lower_band.iloc[self.window-1:]
+            self.data = self.data[self.window-1:]
         return
     
     def add_data_point(self, new_data_point):
@@ -45,7 +50,7 @@ class BollingerBands:
             new_data_point (float or int): The new data point to be added.
         """
         self.data.append(new_data_point)
-        if self.upper_band is not None:
+        if len(self.data) > 20:
             self.calculate()
         return
     
@@ -65,6 +70,11 @@ class BollingerBands:
         Returns:
             tuple: A tuple containing three current values for: upper_band, middle_band, and lower_band.
         """
+        # print(self.upper_band.values[-1])
+        # print(self.middle_band.values[-1])
+        # print(self.lower_band.values[-1])
+        # print(type(self.upper_band.values[-1]))
+        # print(len(self.upper_band))
         return (float(self.upper_band.values[-1]), float(self.middle_band.values[-1]), float(self.lower_band.values[-1]))
 
     
