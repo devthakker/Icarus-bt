@@ -1,0 +1,2 @@
+class Optimization:
+    pass

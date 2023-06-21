@@ -5,7 +5,7 @@ import StrategyTalipp as st
 
 
 # Create an instance of the BacktestEngine
-riley = ic.Riley()
+riley = ic.Riley(True)
 
 # Set Cash Amount
 riley.set_cash(10000)

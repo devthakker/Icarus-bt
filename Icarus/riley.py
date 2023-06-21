@@ -1,12 +1,14 @@
 from Icarus.graphs.graph import *
 from Icarus.source import *
+from Icarus.runners import *
+from Icarus.optimize import *
 import matplotlib.pyplot as plt
 import yfinance as yf
 import pandas as pd
 import logging
 from tqdm import tqdm
 import math
-from Icarus.runners import *
+
 
 class Riley:
     """
@@ -170,9 +172,6 @@ class Riley:
                     data['total_return'] = self.metrics[metric]
                     
         return data
-    
-    def optimize(self):
-        optimization_range = self.strategy.optimization_range
         
     def plot_bar(self, save: bool=False, name: str='Backtest.png'):
         """
@@ -182,9 +181,12 @@ class Riley:
             save (bool): Whether or not to save the plot.
             name (str): The name of the plot.
         """
-        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
-        plot.plot_bar(save=save, name=name)
-        return
+        if self.optimization:
+            return
+        else:
+            plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
+            plot.plot_bar(save=save, name=name)
+            return
         
     def plot(self, save: bool=False, name: str='Backtest.png'):
         """
@@ -194,19 +196,28 @@ class Riley:
             save (bool): Whether or not to save the plot.
             name (str): The name of the plot.
         """
-        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
-        plot.plot(save=save, name=name)
-        return
+        if self.optimization:
+            return
+        else:
+            plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
+            plot.plot(save=save, name=name)
+            return
         
     def plot_candlestick(self,mav: tuple=(3,5), save: bool=False, name: str='Backtest.png'):
         """
         Plots the backtest as a candlestick chart.
         """
-        plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
-        plot.mpl(mav)
-        return
+        if self.optimization:
+            return
+        else:
+            plot = Graph(self.data, self.data_length, self.ticker, self.pct_change, self.account_value_history, self.metrics)
+            plot.mpl(mav)
+            return
         
-    
+    def optimize(self):
+        optimization_range = self.strategy.optimize_range
+        optimized = Optimization(self.ticker, self.data, self.strategy, self.stake, self.stake_type, self.cash, optimization_range)
+        
     def run(self):
         """
         Runs the backtest.
@@ -222,8 +233,6 @@ class Riley:
         if self.stake is None:
             raise Exception('Stake must be set')
         
-
-
             
         if self.optimization:
             optimization = self.optimize()
