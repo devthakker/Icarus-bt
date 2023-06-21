@@ -6,6 +6,7 @@ import pandas as pd
 import logging
 from tqdm import tqdm
 import math
+from Icarus.runners import *
 
 class Riley:
     """
@@ -221,106 +222,19 @@ class Riley:
         if self.stake is None:
             raise Exception('Stake must be set')
         
-        #Initialize Variables
-        
-        #Create dictionary to store current position
-        CURRENT_POSITION = {'shares': 0, 'price': 0}
 
-        #Set start and end dates
-        startDate = self.data['timestamp'][0]
-        endDate = self.data['timestamp'][len(self.data)-1]
-        
-        length = len(self.data)
-        
-        #Loop through each bar
-        pbar = tqdm(total=length, desc='Backtesting on {}'.format(self.ticker), unit='bars')
-        
-        for bar in self.data.iterrows():
-            
-            self.account_value_history.append(self.account_value)
-            
-            try:
-                #Create dictionary from row
-                ohlc = {'open': bar[1]['open'], 'high': bar[1]['high'], 'low': bar[1]['low'], 'close': bar[1]['close'], 'volume': bar[1]['volume'], 'time': bar[1]['timestamp']}
-            except:
-                #Create dictionary from row
-                ohlc = {'open': bar[1]['open'], 'high': bar[1]['high'], 'low': bar[1]['low'], 'close': bar[1]['close']}
 
-            #Update current position
-            # CURRENT_POSITION = self.strategy.update_current_position(CURRENT_POSITION, ohlc)
-
-            self.strategy.add_input_value(ohlc)
-            if(CURRENT_POSITION['shares']==0):
-                if self.strategy.check_for_buy(ohlc) == True:
-                    match self.stake_type:
-                        case 'quantity':
-                            cost = self.stake * ohlc['close']
-                            if cost > self.cash:
-                                raise Exception('Not enough cash')
-                            else:
-                                self.cash -= cost
-                                CURRENT_POSITION['shares'] += self.stake
-                                CURRENT_POSITION['price'] = ohlc['close']
-                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
-                        case 'percentage':
-                            cash = (self.cash * (self.stake/100))
-                            cost = cash/ohlc['close']
-                            if cost > self.cash:
-                                raise Exception('Not enough cash')
-                            else:
-                                self.cash -= cost
-                                CURRENT_POSITION['shares'] += (cash/ohlc['close'])
-                                CURRENT_POSITION['price'] = ohlc['close']
-                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
-                        case 'dollars':
-                            shares = math.floor(self.stake/ohlc['close'])
-                            cost = shares * ohlc['close']
-                            if cost > self.stake:
-                                raise Exception('Not enough cash')
-                            else:
-                                self.cash -= cost
-                                CURRENT_POSITION['shares'] == shares
-                                CURRENT_POSITION['price'] = ohlc['close']
-                                self.account_value = self.cash + (CURRENT_POSITION['shares'] * ohlc['close'])
-            elif(CURRENT_POSITION['shares']>0):
-                if self.strategy.check_for_sell(ohlc) == True:
-                    self.cash += CURRENT_POSITION['shares'] * ohlc['close']
-                    CURRENT_POSITION['shares'] = 0
-                    CURRENT_POSITION['price'] = 0
-                    self.account_value = self.cash
-                    
-                    
-            else:
-                # print("No signal to buy or sell")
-                pass
-                
-            pbar.update(1)
-                
-            
-        pbar.close()
-            
-            
-        #Update account value
-            
-        if CURRENT_POSITION['shares'] > 0:
-            self.account_value = round(self.cash + (CURRENT_POSITION['shares'] * CURRENT_POSITION['price']),2)
-            self.account_value_history.append(self.account_value)
-        else:
-            self.account_value = round(self.cash,2)
-            self.account_value_history.append(self.account_value)
             
         if self.optimization:
             optimization = self.optimize()
             return optimization
-                        
-        
-        else:
-            FINAL_VALUES = {'start': startDate, 'end': endDate, 'start_value': self.account_value_history[0], 'end_value': self.account_value_history[len(self.account_value_history)-1]}
+        else:        
+            RUNNER = Runner(self.ticker, self.data, self.strategy, self.stake, self.stake_type, self.cash)
+            FINAL_VALUES = RUNNER.run()
+            self.account_value_history = FINAL_VALUES.account_value_history
             self.final_values = FINAL_VALUES
-            PERCENTAGE_CHANGE = round(((FINAL_VALUES['end_value'] - FINAL_VALUES['start_value']) / FINAL_VALUES['start_value']) * 100, 2)
-            self.pct_change = PERCENTAGE_CHANGE
-            print(FINAL_VALUES)
-            print('Percentage Change: {}%'.format(PERCENTAGE_CHANGE))
+            self.pct_change = FINAL_VALUES.pct_change
+            print(str(FINAL_VALUES))
             if len(self.metrics) > 0:
                 data = self.calculate_metrics()
             return self.account_value   
