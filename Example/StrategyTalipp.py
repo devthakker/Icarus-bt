@@ -11,7 +11,7 @@ class BollingerBands(ic.strategy):
     # This is where you will define your indicators
     # and any other variables you need
     # If you would like to run an optimization, you have to provide the optimize and optimize_range parameters
-    def __init__(self, optimize=False, optimize_range=range(1, 100)):
+    def __init__(self, optimize=False, optimize_range=range(15, 25)):
         # Call the super class's __init__ method and pass the optimize and optimize_range parameters
         super().__init__(optimize, optimize_range)
         
@@ -21,6 +21,10 @@ class BollingerBands(ic.strategy):
         self.period = 20
         self.BBONE = BB(self.period, 1)
         self.BBTWO = BB(self.period, 2)
+        if self.optimize:
+            pass
+            
+    
     
     
     # Necessary method to add input values to your indicators in the case of using this indicator package

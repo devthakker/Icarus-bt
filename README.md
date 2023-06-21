@@ -28,6 +28,12 @@ Icarus is a Python package designed to facilitate the backtesting of trading str
 
 4. Graphical Representation: Riley provides capabilities to generate graphical representations of backtesting results. This includes visualizations of strategy performance, equity curves, trade signals, and other relevant data.
 
+5. Candlestick Charts: Icarus provides capabilities to generate candlestick charts for the backtested ticker. This allows users to visualize the price action of the ticker over the backtesting period.
+
+6. Customization: Riley is designed to be flexible and customizable. It allows users to specify the stake amount, stake percentage, or stake dollars for each trade. Additionally, users can specify the commission amount for each trade, as well as the slippage percentage. This allows for a wide range of backtesting scenarios.
+
+7. Optimization capabilities: Not yet implemented.
+
 ## Installation
 To install Icarus, follow these steps:
 
