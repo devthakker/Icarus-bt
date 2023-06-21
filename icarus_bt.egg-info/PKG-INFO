@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: icarus-bt
+Version: 0.1.0
+Summary: A backtesting framework for algorithmic trading
+Home-page: https://github.com/devthaakker/icarus-bt
+Download-URL: https://github.com/devthakker/Icarus-bt/archive/refs/tags/v0.1.0.tar.gz
+Author: Devin Thakker
+Author-email: devin.thakker@outlook.com
+License: MIT
+Keywords: backtesting,trading,algorithmic trading,finance,stock market,stock,market,backtest,backtesting framework,backtesting library,backtesting tool,backtesting software,backtesting python,backtesting python library,backtesting python framework,backtesting python tool,backtesting python software,backtesting python library finance,backtesting python framework finance,backtesting python tool finance,backtesting python software finance,backtesting python library stock market,backtesting python framework stock market,backtesting python tool stock market,backtesting python software stock market
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Office/Business :: Financial :: Investment
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Requires-Python: >=3.7
+License-File: LICENSE
