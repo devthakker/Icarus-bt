@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: icarus-bt
-Version: 0.1.0
+Version: 0.2.0
 Summary: A backtesting framework for algorithmic trading
 Home-page: https://github.com/devthaakker/icarus-bt
-Download-URL: https://github.com/devthakker/Icarus-bt/archive/refs/tags/v0.1.0.tar.gz
+Download-URL: https://github.com/devthakker/Icarus-bt/archive/refs/tags/v0.2.0.tar.gz
 Author: Devin Thakker
 Author-email: devin.thakker@outlook.com
 License: MIT
