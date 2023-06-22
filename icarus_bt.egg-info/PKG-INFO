@@ -11,11 +11,11 @@ Keywords: backtesting,trading,algorithmic trading,finance,stock market,stock,mar
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Developers
 Classifier: License :: OSI Approved :: MIT License
-Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.10
 Classifier: Topic :: Office/Business :: Financial :: Investment
 Classifier: Topic :: Software Development :: Libraries :: Python Modules
 Classifier: Topic :: Utilities
-Requires-Python: >=3.7
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
@@ -26,7 +26,7 @@ License-File: LICENSE
 
 # Riley: Backtesting Engine for Trading Strategies
 
-[![Python](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/downloads/release/python-370/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/release/python-310/)
 [![PyPI](https://img.shields.io/pypi/v/icarus-bt?color=blue)](https://pypi.org/project/icarus-bt/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/icarus-bt?color=blue)](https://img.shields.io/github/downloads/devthakker/icarus-bt/total.svg)
 ![GitHub](https://img.shields.io/pypi/l/icarus-bt?color=blue)

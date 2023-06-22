@@ -13,7 +13,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),
-    install_requires=[n for n in open('requirements.txt').readlines()],
+    install_requires=['numpy', 'matplotlib', 'yfinance', 'pandas', 'tqdm', 'mplfinance'],
     author='Devin Thakker',
     author_email='devin.thakker@outlook.com',
     url='https://github.com/devthaakker/icarus-bt',
