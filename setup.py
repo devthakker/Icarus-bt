@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='icarus-bt',
-    version='0.2.0',
+    version='0.2.1',
     description='A backtesting framework for algorithmic trading',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -18,7 +18,7 @@ setup(
     author_email='devin.thakker@outlook.com',
     url='https://github.com/devthaakker/icarus-bt',
     license='MIT',
-    download_url='https://github.com/devthakker/Icarus-bt/archive/refs/tags/v0.2.0.tar.gz',
+    download_url='https://github.com/devthakker/Icarus-bt/archive/refs/tags/v0.2.1.tar.gz',
     keywords=['backtesting', 'trading', 'algorithmic trading', 'finance', 'stock market', 'stock', 'market', 'backtest', 'backtesting framework', 'backtesting library', 'backtesting tool', 'backtesting software', 'backtesting python', 'backtesting python library', 'backtesting python framework', 'backtesting python tool', 'backtesting python software', 'backtesting python library finance', 'backtesting python framework finance', 'backtesting python tool finance', 'backtesting python software finance', 'backtesting python library stock market', 'backtesting python framework stock market', 'backtesting python tool stock market', 'backtesting python software stock market'],
     classifiers=[
         'Development Status :: 3 - Alpha',
