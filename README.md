@@ -108,7 +108,7 @@ Icarus provides capabilities to generate candlestick charts for the backtested t
 
 
 ## Documentation
-For more information on how to use Riley, please refer to the [documentation](https://icarus-bt.readthedocs.io/en/latest/).
+For more information on how to use Riley, please refer to the [WIKI](https://github.com/devthakker/Icarus-bt/wiki).
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
