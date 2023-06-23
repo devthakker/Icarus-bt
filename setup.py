@@ -8,7 +8,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='icarus-bt',
-    version='0.2.1',
+    version='{{VERSION_PLACEHOLDER}}',
     description='A backtesting framework for algorithmic trading',
     long_description=long_description,
     long_description_content_type='text/markdown',
