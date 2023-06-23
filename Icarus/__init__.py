@@ -7,3 +7,4 @@ from .indicators import *
 from .runners import *
 from .optimize import *
 import .warnings
+from version import __version__
