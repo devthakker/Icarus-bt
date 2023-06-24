@@ -34,6 +34,12 @@ Icarus is a Python package designed to facilitate the backtesting of trading str
 
 7. Optimization capabilities: Not yet implemented.
 
+8. Portfolio Management: Not yet implemented.
+
+9. Risk Management: Not yet implemented.
+
+10. Visit the [WIKI](https://github.com/devthakker/Icarus-bt/wiki/Home) for more information.
+
 ## Installation
 To install Icarus, follow these steps:
 
@@ -44,6 +50,8 @@ To install Icarus, follow these steps:
 ```python
 pip install ICARUS-BT
 ```
+
+Please visit the [INSTALLATION](https://github.com/devthakker/Icarus-bt/wiki/Installation) page on the wiki for more information.
 
 ## Getting Started
 To begin using Icarus for backtesting trading strategies, follow the example below:
@@ -96,8 +104,10 @@ riley.plot()
 # riley.plot_bar()
 ```
 
+Please visit the [RILEY](https://github.com/devthakker/Icarus-bt/wiki/Riley) page on the wiki for more information.
+
 ## Graphical Representation
-Icarus provides capabilities to generate graphical representations of backtesting results. This includes visualizations of strategy performance, equity curves, trade signals, and other relevant data.
+Icarus provides capabilities to generate graphical representations of backtesting results. This includes visualizations of strategy performance, equity curves, trade signals, and other relevant data. Please visit the [GRAPHS](https://github.com/devthakker/Icarus-bt/wiki/Graphs) page on the wiki for more information.
 
 ![ICARUS-BT](./Backtest.png?raw=true)
 
@@ -114,7 +124,7 @@ For more information on how to use Riley, please refer to the [WIKI](https://git
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
-Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository, as well as detailed information on what is changed, added, or improved.
+Icarus is an open-source project, and contributions are welcome. If you find any issues, have suggestions for improvements, or would like to add new features, please submit a pull request on the GitHub repository, as well as detailed information on what is changed, added, or improved. Please visit the [CONTRIBUTING](https://github.com/devthakker/Icarus-bt/wiki/Contribution) page for more information.
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to the development team at devin.thakker@outlook.com
