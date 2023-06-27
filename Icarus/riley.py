@@ -246,4 +246,4 @@ class Riley:
             print(str(FINAL_VALUES))
             if len(self.metrics) > 0:
                 data = self.calculate_metrics()
-            return self.account_value   
+            return {'Final': FINAL_VALUES, 'Metrics': data}
