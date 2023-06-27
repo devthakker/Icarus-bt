@@ -43,7 +43,7 @@ Icarus is a Python package designed to facilitate the backtesting of trading str
 ## Installation
 To install Icarus, follow these steps:
 
-1. Ensure that you have Python 3.7 or above installed on your system.
+1. Ensure that you have Python 3.10 or above installed on your system.
 2. Open a terminal or command prompt.
 3. Run the following command to install Riley using pip:
 
