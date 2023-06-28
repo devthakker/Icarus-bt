@@ -164,7 +164,7 @@ class Riley:
                     annual_return = self.metrics[metric](self.account_value_history)
                     self.metrics[metric] = annual_return.calculate()
                     print("Annual Return: " + str(self.metrics[metric]))
-                    data['annual_return'] = self.metrics[metric]
+                    data['annualreturn'] = self.metrics[metric]
                 case 'totalreturn':
                     total_return = self.metrics[metric](self.starting_cash, self.final_values['end_value'])
                     self.metrics[metric] = total_return.calculate()
