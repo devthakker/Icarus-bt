@@ -166,7 +166,7 @@ class Riley:
                     print("Annual Return: " + str(self.metrics[metric]))
                     data['annualreturn'] = self.metrics[metric]
                 case 'totalreturn':
-                    total_return = self.metrics[metric](self.starting_cash, self.final_values['end_value'])
+                    total_return = self.metrics[metric](self.starting_cash, self.final_values.end_value)
                     self.metrics[metric] = total_return.calculate()
                     print("Total Return: " + str(self.metrics[metric]))
                     data['total_return'] = self.metrics[metric]
