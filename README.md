@@ -114,7 +114,7 @@ Icarus provides capabilities to generate graphical representations of backtestin
 ## Candlestick Charts
 Icarus provides capabilities to generate candlestick charts for the backtested ticker. This allows users to visualize the price action of the ticker over the backtesting period.
 
-![BAR-CHART](./Candlestick.png?raw=true)
+![BAR-CHART](./CandleStick.png?raw=true)
 
 
 ## Documentation
