@@ -6,9 +6,17 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
+pkg_name     = 'Icarus-bt'
+
+vfile = './'+pkg_name+'/version.py'
+
+vers = {}
+with open(vfile) as f:
+   exec(f.read(), {}, vers)
+
 setup(
-    name='icarus-bt',
-    version='0.2.1',
+    name=pkg_name,
+    version=vers['__version__'],
     description='A backtesting framework for algorithmic trading',
     long_description=long_description,
     long_description_content_type='text/markdown',
